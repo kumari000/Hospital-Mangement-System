@@ -1,0 +1,88 @@
+mysql> create database hospital;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use hospital;
+Database changed
+mysql> create table patients(
+    -> id INT AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(255) NOT NULL,
+    -> AGE INT NOT NULL,
+    -> gender VARCHAR(10) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DROP TABLE patients
+    -> DROP TABLE patients;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DROP TABLE patients' at line 2
+mysql> SELECT * FROM patients;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE doctors(
+    -> id INT AUTO_INCREMENT PRIMARY KEY,
+    -> name VARCHAR(255) NOT NULL,
+    -> specialization VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE appointments(
+    -> id INT AUTO_INCREMENT PRIMARY KEY,
+    -> patients_id INT NOT NULL,
+    -> doctor_id INT NOT NULL,
+    -> appointment_date DATE NOT NULL,
+    -> FOREIGN KEY (patients_id) REFERENCES patients(id),
+    -> FOREIGN KEY (doctor_id) REFERENCE doctors(id),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCE doctors(id),
+)' at line 7
+mysql>  CREATE TABLE appointments(
+    ->  id INT AUTO_INCREMENT PRIMARY KEY,
+    ->  patients_id INT NOT NULL,
+    ->  doctor_id INT NOT NULL,
+    ->  appointment_date DATE NOT NULL,
+    -> FOREIGN KEY (patients_id) REFERENCES patients(id),
+    ->  FOREIGN KEY (doctor_id) REFERENCES doctors(id),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 8
+mysql> CREATE TABLE appointments(
+    ->  id INT AUTO_INCREMENT PRIMARY KEY,
+    -> patients_id INT NOT NULL,
+    ->  doctor_id INT NOT NULL,
+    -> appointment_date DATE NOT NULL,
+    ->  FOREIGN KEY (patients_id) REFERENCES patients(id),
+    -> FOREIGN KEY (doctor_id) REFERENCES doctors(id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> SHOW TABLES
+    -> hospital
+    -> SHOW TABLES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hospital
+SHOW TABLES' at line 2
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_hospital |
++--------------------+
+| appointments       |
+| doctors            |
+| patients           |
++--------------------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO doctors(name,specialization) VALUES ("Pankaj Jain","Physi
+cian");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO doctors(name,specialization) VALUES ("Harshit Amod","Neur
+oSurgeon");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM doctors;
++----+--------------+----------------+
+| id | name         | specialization |
++----+--------------+----------------+
+|  1 | Pankaj Jain  | Physician      |
+|  2 | Harshit Amod | NeuroSurgeon   |
++----+--------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql>
